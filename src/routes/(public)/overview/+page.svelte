@@ -1,9 +1,10 @@
 <script lang="ts">
-	import DataTable from './data-table.svelte'
+	import DataTable from './DataTable.svelte'
 	export let data;
-
-	const { attractions } = data
 </script>
+<svelte:head>
+	<title>Overview</title>
+</svelte:head>
 
-<DataTable {attractions}></DataTable>
+<DataTable attractions={data.attractions}></DataTable>
 

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 	import { Button } from "$lib/components/ui/button";
+	import { FerrisWheel, Map } from 'lucide-svelte';
 	import { MoreHorizontal } from 'lucide-svelte';
 	export let uuid: string;
 </script>
@@ -21,11 +22,17 @@
 			<DropdownMenu.Label>Actions</DropdownMenu.Label>
 		</DropdownMenu.Group>
 		<DropdownMenu.Separator />
-		<a href='/attraction/{uuid}'>
-			<DropdownMenu.Item>View Attraction</DropdownMenu.Item>
-		</a>
-		<a href='/map?focus={uuid}'>
-			<DropdownMenu.Item>View on map</DropdownMenu.Item>
-		</a>
+		<DropdownMenu.Item>
+			<Button variant='link' href='/attraction/{uuid}'>
+				<FerrisWheel class='me-2'/>
+				View Attraction
+			</Button>
+		</DropdownMenu.Item>
+		<DropdownMenu.Item>
+			<Button class='w-full' href='/map?focus={uuid}'>
+				<Map class='me-2'/>
+				View on map
+			</Button>
+		</DropdownMenu.Item>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

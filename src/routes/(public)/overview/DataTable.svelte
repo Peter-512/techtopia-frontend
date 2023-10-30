@@ -4,14 +4,20 @@
 	import { ArrowUpDown, ChevronDown } from "lucide-svelte";
 	import * as Table from "$lib/components/ui/table";
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
+	import {slide} from 'svelte/transition';
 	import { Input } from "$lib/components/ui/input";
 	import { Button } from "$lib/components/ui/button";
-	import DataTableActions from "./data-table-actions.svelte";
-	import TagBadge from "./tag-badge.svelte";
+	import DataTableActions from "./DataTableActions.svelte";
+	import TagBadge from "./TagBadge.svelte";
 	import { readable } from "svelte/store";
 	import type { Attraction } from '$lib/types';
 
-	export let attractions: Attraction[] = []
+	export let attractions: Attraction[] = [];
+	let minAge = Math.min(...attractions.map((attraction) => attraction.minAge));
+	let minHeight = Math.min(...attractions.map((attraction) => attraction.minHeight));
+	let maxAge = Math.max(...attractions.map((attraction) => attraction.minAge));
+	let maxHeight = Math.max(...attractions.map((attraction) => attraction.minHeight));
+
 	const table = createTable(readable(attractions), {
 		page: addPagination(),
 		sort: addSortBy(),
@@ -24,6 +30,21 @@
 	});
 
 	const columns = table.createColumns([
+		table.column({
+			accessor: 'attractionUUID',
+			header: "",
+			plugins: {
+				sort: {
+					disable: true
+				},
+				filter: {
+					exclude: true
+				}
+			},
+			cell: ({ value }) => {
+				return createRender(DataTableActions, { uuid: value });
+			}
+		}),
 		table.column({
 			accessor: "name",
 			header: "Name",
@@ -42,7 +63,7 @@
 					fn: ({ filterValue, value }) => {
 						return value >= filterValue;
 					},
-					initialFilterValue: 6
+					initialFilterValue: minAge,
 				}
 			}
 		}),
@@ -60,7 +81,7 @@
 					fn: ({ filterValue, value }) => {
 						return value >= filterValue;
 					},
-					initialFilterValue: 100
+					initialFilterValue: minHeight,
 				}
 			}
 		}),
@@ -70,11 +91,6 @@
 			cell: ({ value }) => {
 				return createRender(TagBadge, { tags: value });
 			},
-			plugins: {
-				filter: {
-					exclude: true
-				}
-			}
 		}),
 		table.column({
 			accessor: "waitingTime",
@@ -88,21 +104,6 @@
 				}
 			}
 		}),
-		table.column({
-			accessor: 'attractionUUID',
-			header: "",
-			plugins: {
-				sort: {
-					disable: true
-				},
-				filter: {
-					exclude: true
-				}
-			},
-			cell: ({ value }) => {
-				return createRender(DataTableActions, { uuid: value });
-			}
-		})
 	]);
 
 	const { headerRows, pageRows, tableAttrs, tableBodyAttrs, pluginStates, flatColumns } =
@@ -121,29 +122,35 @@
 
 	type AttractionKeys = keyof Attraction;
 	const hidableCols: AttractionKeys[]= ['minAge', 'minHeight', 'waitingTime', 'tags'];
+
+	$filterValues = {
+		...$filterValues,
+		minAge,
+		minHeight,
+	};
 </script>
 
-<div>
-	<div class='flex justify-between'>
+<div class='m-4'>
+	<div class='flex justify-between flex-col sm:flex-row'>
 		<div class='flex items-center py-4'>
 			<Input
 				class='max-w-sm'
-				placeholder='Filter attractions...'
+				placeholder='Filter attractions or tags...'
 				type='text'
 				bind:value={$filterValue}
 			/>
 		</div>
 
-		<div class='flex flex-col py-4'>
-			<label class='text-muted-foreground' for='min-height'>Height {$filterValues.minHeight ?? 100} cm</label>
-			<input id='min-height' class='bg-green-300 accent-green-500 text-green-800' bind:value={$filterValues.minHeight}
-						 min={100} max={130} step={10} type='range'>
+		<div class='flex flex-col py-4 max-w-sm'>
+			<label class='text-muted-foreground' for='min-height'>Height {$filterValues.minHeight ?? minHeight} cm</label>
+			<input id='min-height' class='bg-green-300 accent-green-500 text-green-800'  bind:value={$filterValues.minHeight}
+						 min={minHeight} max={maxHeight} step={10} type='range'>
 		</div>
 
-		<div class='flex flex-col py-4'>
-			<label class="text-muted-foreground" for='min-height'>Age {$filterValues.minAge ?? 6} years</label>
+		<div class='flex flex-col py-4 max-w-sm'>
+			<label class="text-muted-foreground" for='min-height'>Age {$filterValues.minAge ?? minAge} years</label>
 			<input id='min-height' class='bg-green-300 accent-green-500 text-green-800' bind:value={$filterValues.minAge}
-						 min={6} max={12} step={1} type='range'>
+						 min={minAge} max={maxAge} step={1} type='range'>
 		</div>
 
 		<div class='py-4'>

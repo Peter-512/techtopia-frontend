@@ -5,7 +5,7 @@ import Title from './alert-title.svelte';
 import Root from './alert.svelte';
 
 export const alertVariants = tv({
-	base: 'relative w-full rounded-lg border px-4 ps-7 py-3 text-sm [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground',
+	base: 'relative w-full rounded-lg border-2 px-4 ps-7 py-3 text-sm [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground',
 	variants: {
 		variant: {
 			default: 'bg-background text-foreground border-primary/50',
