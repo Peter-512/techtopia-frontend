@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 
 function createSecurityStore() {
 	const { update, set, subscribe } = writable({
@@ -15,10 +15,8 @@ function createSecurityStore() {
 		setIsAuthenticated: (isAuthenticated: boolean) => update((s) => ({ ...s, isAuthenticated })),
 		setLogout: (logoutFn: () => void) => update((s) => ({ ...s, logoutFn })),
 		logout: () => {
-			update((fn) => {
-				fn.logoutFn();
-				return fn;
-			});
+			const { logoutFn } = get(securityStore);
+			logoutFn();
 			set({
 				token: '',
 				user: '',

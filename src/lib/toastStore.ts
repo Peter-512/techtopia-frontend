@@ -3,7 +3,6 @@ import { writable } from 'svelte/store';
 interface Toast {
 	id: number;
 	type: keyof (typeof import('./components/ui/alert/index').alertVariants)['variants']['variant'];
-	dismissible: boolean;
 	timeout: number;
 	title: string;
 	message: string;
@@ -18,7 +17,6 @@ export const addToast = (toast: AddToast) => {
 	const defaults = {
 		id,
 		type: 'default' as const,
-		dismissible: true,
 		timeout: 5000
 	};
 

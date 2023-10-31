@@ -4,9 +4,11 @@
 	import { onMount } from 'svelte';
 	import type { AdminAttraction, FullAttraction } from '$lib/types';
 	import { addToast } from '$lib/toastStore';
+
 	export let data;
 
-	const attractions: Record<string, FullAttraction> = data.fullAttractions.reduce((acc, attraction) => {
+	const attractions = data.fullAttractions.reduce<Record<string, FullAttraction>>((acc, attraction) => {
+		if (!attraction) return acc;
 		acc[attraction.attractionUUID] = attraction;
 		return acc;
 	}, {})
@@ -15,9 +17,14 @@
 
 	const poll = async () => {
 		const req = await fetch('/admin')
+		if (!req.ok){
+			console.log('error polling');
+			return;
+		}
+
 		const newAttractions = await req.json();
 
-		newAttractions.forEach((newAttraction: AdminAttraction) => {
+		newAttractions?.forEach((newAttraction: AdminAttraction) => {
 			const oldAttraction = polledAttractions.find(a => a.attractionUUID.uuid === newAttraction.attractionUUID.uuid);
 			if (oldAttraction) {
 				if (oldAttraction.throughput !== newAttraction.throughput) {

@@ -26,15 +26,15 @@
 			body: JSON.stringify({ token, name, isAuthenticated })
 		})
 	}
+	const keycloakConfig = {
+		url: PUBLIC_KC_URL,
+		realm: PUBLIC_REALM,
+		clientId: PUBLIC_CLIENT_ID
+	};
+	let keycloak: Keycloak;
 
 	onMount(() => {
-		const keycloakConfig = {
-			url: PUBLIC_KC_URL,
-			realm: PUBLIC_REALM,
-			clientId: PUBLIC_CLIENT_ID
-		};
-		const keycloak: Keycloak = new Keycloak(keycloakConfig);
-
+		keycloak = new Keycloak(keycloakConfig);
 		keycloak.init({
 			onLoad: 'login-required'
 		})
@@ -62,12 +62,12 @@
 		};
 
 		keycloak.onTokenExpired = async () => {
-			keycloak.updateToken(-1).then(function() {
-				securityStore.setToken(keycloak.token ?? '');
-				securityStore.setUser(keycloak.idTokenParsed?.name);
-				securityStore.setIsAuthenticated(keycloak.authenticated ?? false)
-				securityStore.setLogout(keycloak.logout)
-			});
+			await keycloak.updateToken(-1)
+			securityStore.setToken(keycloak.token ?? '');
+			securityStore.setUser(keycloak.idTokenParsed?.name);
+			securityStore.setIsAuthenticated(keycloak.authenticated ?? false)
+			securityStore.setLogout(keycloak.logout)
+
 			await customLogin({
 				token: keycloak.token ?? '',
 				name: keycloak.idTokenParsed?.name ?? '',

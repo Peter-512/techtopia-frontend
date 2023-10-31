@@ -46,19 +46,19 @@
 	</Card>
 </section>
 
-<section class='m-4'>
+<section>
 	<h2 class='text-2xl text-center mt-12 mb-6'>Similar Attractions</h2>
 
-	<div class='grid sm:grid-cols-2 md:grid-cols-3 gap-8'>
+	<div class='grid sm:grid-cols-2 md:grid-cols-3 gap-8 m-4'>
 		{#each data.similarAttractions as attraction}
-			<a href='/attraction/{attraction.attractionUUID}'>
-				<article
-					class='h-64 w-64 place-self-center overflow-hidden relative shadow-2xl rounded-xl transition-all hover:scale-105'>
+			<article
+					class='h-64 w-64 place-self-center overflow-hidden relative shadow-2xl rounded-xl transition-all hover:scale-105 m-auto'>
+				<a href='/attraction/{attraction.attractionUUID}'>
 					<img use:transition={`attraction-icon-${attraction.attractionUUID}`} class='object-cover w-full h-full' src={attraction.iconUrl} alt={attraction.name}>
 					<div
 						class='absolute bottom-0 backdrop-blur bg-opacity-50 bg-black text-white p-4 w-full'>{attraction.name}</div>
-				</article>
-			</a>
+				</a>
+			</article>
 		{/each}
 	</div>
 

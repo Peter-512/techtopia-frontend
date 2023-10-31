@@ -1,8 +1,7 @@
 import type { AdminAttraction, Attraction, FullAttraction } from '$lib/types';
-import { error } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import type { LayoutServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ fetch, parent, locals }) => {
+export const load: LayoutServerLoad = async ({ fetch, parent, locals }) => {
 	const { attractions } = await parent();
 
 	const token = locals.user.token;
@@ -14,20 +13,22 @@ export const load: PageServerLoad = async ({ fetch, parent, locals }) => {
 	});
 
 	if (res.status === 401) {
-		throw error(401, 'Unauthorized');
+		console.log('Unauthorized');
 	}
 
 	const adminAttractions: AdminAttraction[] = await res.json();
-	const fullAttractions: FullAttraction[] = adminAttractions.map((adminAttraction) => {
-		const attraction = attractions.find(
+
+	const fullAttractions = adminAttractions.reduce<FullAttraction[]>((acc, adminAttraction) => {
+		const attraction: Attraction = attractions.find(
 			(attraction: Attraction) => adminAttraction.attractionUUID.uuid === attraction.attractionUUID
 		);
 		if (attraction) {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			const { attractionUUID, currentWaitingTime, ...rest } = adminAttraction;
-			return { ...attraction, ...rest };
+			const { attractionUUID, ...rest } = adminAttraction;
+			acc = [{ ...attraction, ...rest }, ...acc];
 		}
-	});
+		return acc;
+	}, []);
 
 	return { fullAttractions };
 };

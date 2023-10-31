@@ -13,7 +13,6 @@
 			<div in:fly={{x: 200}} out:slide>
 				<Alert
 					class='mt-2'
-					dismissible={toast.dismissible}
 					on:dismiss={() => dismissToast(toast.id)}>
 					<Bell size={30} />
 					<AlertTitle>{toast.title}</AlertTitle>

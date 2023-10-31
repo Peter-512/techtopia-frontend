@@ -11,14 +11,13 @@
 	export let attraction: FullAttraction;
 	export let adminAttraction: AdminAttraction;
 
-	let trigger: HTMLButtonElement;
 </script>
 
 
 <div style:--waitingTime={adminAttraction?.currentWaitingTime} style:--throughputColor={adminAttraction?.throughput === 'HIGH' ? 'red' : 'orange'} style:top='{attraction.coordinates.y}px' style:left='{attraction.coordinates.x}px' class='absolute rounded-full border-green-500'>
 	<Popover positioning={{placement: 'top'}}>
 		<PopoverTrigger asChild let:builder>
-			<button use:builder.action {...builder} bind:this={trigger}>
+			<button use:builder.action {...builder}>
 				<FerrisWheel class='text-red-600' size={50} />
 			</button>
 		</PopoverTrigger>
@@ -29,8 +28,10 @@
 				<p>Waiting time: {adminAttraction.currentWaitingTime} minute{adminAttraction.currentWaitingTime === 1 ? '' : 's'}</p>
 				{#if !attraction.open}
 					<ShieldAlert color='red'/> Closed <ShieldAlert/>
+				{:else}
+					<p>Open</p>
 				{/if}
-				<a href='/attraction/{attraction.attractionUUID}' class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>See more</a>
+				<a href='admin/attraction/{attraction.attractionUUID}' class='font-medium text-blue-600 dark:text-blue-500 hover:underline'>Details</a>
 			</section>
 		</PopoverContent>
 	</Popover>
