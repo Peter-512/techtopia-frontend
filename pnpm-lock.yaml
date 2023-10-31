@@ -14,6 +14,9 @@ dependencies:
   clsx:
     specifier: ^2.0.0
     version: 2.0.0
+  formsnap:
+    specifier: ^0.2.1
+    version: 0.2.1(svelte@4.2.2)(sveltekit-superforms@1.8.0)(zod@3.22.4)
   keycloak-js:
     specifier: ^22.0.5
     version: 22.0.5
@@ -29,6 +32,9 @@ dependencies:
   radix-icons-svelte:
     specifier: ^1.2.1
     version: 1.2.1
+  sveltekit-superforms:
+    specifier: ^1.8.0
+    version: 1.8.0(@sveltejs/kit@1.26.0)(svelte@4.2.2)(zod@3.22.4)
   sveltekit-view-transition:
     specifier: ^0.5.2
     version: 0.5.2(@sveltejs/kit@1.26.0)(svelte@4.2.2)
@@ -38,6 +44,9 @@ dependencies:
   tailwind-variants:
     specifier: ^0.1.14
     version: 0.1.14(tailwindcss@3.3.3)
+  zod:
+    specifier: ^3.22.4
+    version: 3.22.4
 
 devDependencies:
   '@sveltejs/adapter-auto':
@@ -1182,6 +1191,18 @@ packages:
       tabbable: 6.2.0
     dev: false
 
+  /formsnap@0.2.1(svelte@4.2.2)(sveltekit-superforms@1.8.0)(zod@3.22.4):
+    resolution: {integrity: sha512-c3NGj79zK4zHZzXoRXTTEISPYH/TIAtzE6fPkcOrdje2JWv79y4cnUHr3UhaRR5GaFfkbhq7sYG1yZyVcp5tVQ==}
+    peerDependencies:
+      svelte: ^4.0.0
+      sveltekit-superforms: ^1.7.1
+      zod: ^3.22.2
+    dependencies:
+      svelte: 4.2.2
+      sveltekit-superforms: 1.8.0(@sveltejs/kit@1.26.0)(svelte@4.2.2)(zod@3.22.4)
+      zod: 3.22.4
+    dev: false
+
   /fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
@@ -2142,6 +2163,18 @@ packages:
       magic-string: 0.30.5
       periscopic: 3.1.0
 
+  /sveltekit-superforms@1.8.0(@sveltejs/kit@1.26.0)(svelte@4.2.2)(zod@3.22.4):
+    resolution: {integrity: sha512-ig4SJNe72UNlmL2FjXk6Z3I7WYEm+qerA8PB4WOjQkOirztiDNJrY/bs1lF8VLxc56TSG9JQkCtZkgUdlH3yYA==}
+    peerDependencies:
+      '@sveltejs/kit': 1.x
+      svelte: 3.x || 4.x
+      zod: 3.x
+    dependencies:
+      '@sveltejs/kit': 1.26.0(svelte@4.2.2)(vite@4.5.0)
+      svelte: 4.2.2
+      zod: 3.22.4
+    dev: false
+
   /sveltekit-view-transition@0.5.2(@sveltejs/kit@1.26.0)(svelte@4.2.2):
     resolution: {integrity: sha512-xQ5+5YkQUW41nTW7206SB0pD6JgtebmCiFoPoyKdilGkqKFdLjZ940kMY6kDf5bi0dRf18H0ZmUSH9v1BB5m3Q==}
     peerDependencies:
@@ -2362,3 +2395,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod@3.22.4:
+    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    dev: false
