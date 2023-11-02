@@ -12,6 +12,7 @@
 
 			<div in:fly={{x: 200}} out:slide>
 				<Alert
+					variant={toast.type}
 					class='mt-2'
 					on:dismiss={() => dismissToast(toast.id)}>
 					<Bell size={30} />

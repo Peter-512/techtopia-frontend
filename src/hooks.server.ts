@@ -1,4 +1,4 @@
-import type { Handle } from '@sveltejs/kit';
+import type { Handle, HandleFetch } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const token = event.cookies.get('token');
@@ -11,4 +11,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 		name: name ?? ''
 	};
 	return resolve(event);
+};
+
+export const handleFetch: HandleFetch = async ({ request, event }) => {
+	request.headers.set('Authorization', `Bearer ${event.locals.user.token}`);
+	return fetch(request);
 };

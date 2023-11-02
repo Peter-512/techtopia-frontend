@@ -82,6 +82,7 @@
 <div class='flex m-4 justify-between'>
 	<p class='self-center'>Welcome {data.name}</p>
 	<Button href='/admin'>Map</Button>
+	<Button href='/forecasts'>Forecasts</Button>
 	<Button on:click={securityStore.logout} variant='destructive'>Logout</Button>
 </div>
 <main class="container">

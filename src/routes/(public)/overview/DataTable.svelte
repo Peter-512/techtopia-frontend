@@ -4,7 +4,6 @@
 	import { ArrowUpDown, ChevronDown } from "lucide-svelte";
 	import * as Table from "$lib/components/ui/table";
 	import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
-	import {slide} from 'svelte/transition';
 	import { Input } from "$lib/components/ui/input";
 	import { Button } from "$lib/components/ui/button";
 	import DataTableActions from "./DataTableActions.svelte";

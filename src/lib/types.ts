@@ -34,3 +34,16 @@ export type Gate = {
 		y: number;
 	};
 };
+
+export type VisitorForecast = {
+	date: string;
+	predictedVisitors: number;
+	error: boolean;
+	errorMessage: string;
+};
+
+export type WeatherForecast = {
+	date: string;
+	weatherType: string;
+	temperatureType: string;
+};
