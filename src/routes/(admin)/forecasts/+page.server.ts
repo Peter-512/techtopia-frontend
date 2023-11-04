@@ -1,4 +1,4 @@
-import type { VisitorForecast, WeatherForecast } from '$lib/types';
+import type { RefreshmentStandsForecast, VisitorForecast, WeatherForecast } from '$lib/types';
 import { format } from 'date-fns';
 import type { Actions } from './$types';
 
@@ -93,6 +93,48 @@ export const actions: Actions = {
 			} temperature for ${format(date, 'dd.MM.yyyy')}`,
 			weather: {
 				data
+			}
+		};
+	},
+
+	'refreshment-stands': async ({ fetch, request }) => {
+		const form = await request.formData();
+		const entry = form.get('date');
+		if (!entry) {
+			return {
+				status: 'error',
+				errorMessage: 'Failed to forecast',
+				refreshmentStands: {
+					data: {
+						amount: 0
+					} satisfies RefreshmentStandsForecast
+				}
+			};
+		}
+
+		const date = new Date(Date.parse(entry.toString()));
+
+		const req = await fetch(
+			`http://localhost:8090/api/refreshment-stands/${date.toISOString().slice(0, 10)}`,
+			{
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}
+		);
+
+		const data: number = await req.json();
+
+		return {
+			status: 'success',
+			successMessage: `Forecasted to need ${data} refreshment stands on ${format(
+				date,
+				'dd.MM.yyyy'
+			)}`,
+			refreshmentStands: {
+				data: {
+					amount: data
+				} satisfies RefreshmentStandsForecast
 			}
 		};
 	}

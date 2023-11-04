@@ -79,10 +79,11 @@
 
 
 {#if data.isAuthenticated}
-<div class='flex m-4 justify-between'>
+<div class='grid m-4 grid-cols-5 place-items-center'>
 	<p class='self-center'>Welcome {data.name}</p>
 	<Button href='/admin'>Map</Button>
 	<Button href='/forecasts'>Forecasts</Button>
+	<Button href='/analytics'>Analytics</Button>
 	<Button on:click={securityStore.logout} variant='destructive'>Logout</Button>
 </div>
 <main class="container">

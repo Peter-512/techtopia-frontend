@@ -45,7 +45,7 @@
 	})
 </script>
 <svelte:head>
-	<title>Map</title>
+	<title>Admin</title>
 </svelte:head>
 
 <section class='max-w-full max-h-full overflow-auto relative sm:mx-4 my-4'>

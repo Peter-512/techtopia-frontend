@@ -16,3 +16,9 @@
 >
 	<slot />
 </svelte:element>
+
+<style>
+	a, span {
+  	background-color: var(--badgeColor, #fff);
+	}
+</style>

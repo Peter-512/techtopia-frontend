@@ -47,3 +47,7 @@ export type WeatherForecast = {
 	weatherType: string;
 	temperatureType: string;
 };
+
+export type RefreshmentStandsForecast = {
+	amount: number;
+};

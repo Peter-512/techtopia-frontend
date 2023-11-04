@@ -14,6 +14,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 };
 
 export const handleFetch: HandleFetch = async ({ request, event }) => {
-	request.headers.set('Authorization', `Bearer ${event.locals.user.token}`);
+	if (
+		!(
+			request.url.startsWith('http://localhost:8090/api/attractions') ||
+			request.url.startsWith('http://localhost:8090/api/gates')
+		)
+	) {
+		request.headers.set('Authorization', `Bearer ${event.locals.user.token}`);
+	}
 	return fetch(request);
 };
