@@ -20,7 +20,7 @@
 
 <h1 class='text-4xl text-center mb-6 mt-12'>{data.attraction.name}</h1>
 
-<Form id='admin' class='max-w-xl m-auto container' method="POST" form={data.form} schema={attractionSchema} let:config options={{onSubmit() {
+<Form class='max-w-xl m-auto container' method="POST" form={data.form} schema={attractionSchema} let:config options={{onSubmit() {
 	addToast({title: 'Attraction updated', message: 'The attraction has been saved'})
 }}}>
 

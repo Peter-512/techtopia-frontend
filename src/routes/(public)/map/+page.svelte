@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 	import type { Attraction } from '$lib/types';
 	import { onMount } from 'svelte';
+	import RefreshmentStandIcon from './RefreshmentStandIcon.svelte';
 
 	export let data;
 	let focusedID = $page.url.searchParams.get('focus');
@@ -33,6 +34,9 @@
 		{/each}
 		{#each data.attractions as attraction}
 			<AttractionIcon isFocused={attraction.attractionUUID === focusedID} {attraction} />
+		{/each}
+		{#each data.refreshmentStands as refreshmentStand}
+			<RefreshmentStandIcon {refreshmentStand} />
 		{/each}
 	</div>
 </section>

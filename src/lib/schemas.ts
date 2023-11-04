@@ -14,6 +14,13 @@ export const poiSchema = z.object({
 	open: z.boolean()
 });
 
+export const refreshmentSchema = z.object({
+	x: z.coerce.number().max(1000).min(0),
+	y: z.coerce.number().max(1000).min(0),
+	name: z.string().min(3),
+	category: z.enum(['FOOD', 'DRINK', 'SNACK'])
+});
+
 export const attractionSchema = z.object({
 	throughput: z.enum(['LOW', 'HIGH']),
 	threshold: z.coerce.number()

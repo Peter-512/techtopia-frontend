@@ -5,6 +5,8 @@
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/components/ui/button';
 	import Toasts from '$lib/components/Toasts.svelte';
+	import { PlusCircled } from 'radix-icons-svelte';
+	import {page} from '$app/stores';
 
 	export let data;
 
@@ -86,6 +88,9 @@
 	<Button href='/analytics'>Analytics</Button>
 	<Button on:click={securityStore.logout} variant='destructive'>Logout</Button>
 </div>
+	{#if $page.route.id !== '/(admin)/refreshment-stands'}
+		<a class='absolute bottom-2 left-2' href='/refreshment-stands'><PlusCircled size={64} /></a>
+	{/if}
 <main class="container">
 	<slot/>
 	<Toasts />

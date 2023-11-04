@@ -51,3 +51,11 @@ export type WeatherForecast = {
 export type RefreshmentStandsForecast = {
 	amount: number;
 };
+
+export type RefreshmentStand = {
+	refreshmentStandUUID: string;
+	name: string;
+	category: string;
+	x: number;
+	y: number;
+};

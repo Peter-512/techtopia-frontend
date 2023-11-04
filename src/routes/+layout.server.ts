@@ -1,16 +1,22 @@
-import type { Attraction, Gate } from '$lib/types';
+import type { Attraction, Gate, RefreshmentStand } from '$lib/types';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ fetch }) => {
-	const [attractionRes, gatesRes] = await Promise.all([
+	const [attractionRes, gatesRes, refreshmentStandsRes] = await Promise.all([
 		fetch('http://localhost:8090/api/attractions'),
-		fetch('http://localhost:8090/api/gates')
+		fetch('http://localhost:8090/api/gates'),
+		fetch('http://localhost:8090/api/refreshment-stands')
 	]);
 
-	const [attractions, gates]: [attractions: Attraction[], gates: Gate[]] = await Promise.all([
-		attractionRes.json(),
-		gatesRes.json()
-	]);
+	const [attractions, gates, refreshmentStands]: [
+		attractions: Attraction[],
+		gates: Gate[],
+		refreshmentStands: RefreshmentStand[]
+	] = await Promise.all([attractionRes.json(), gatesRes.json(), refreshmentStandsRes.json()]);
 
-	return { attractions, gates };
+	return {
+		attractions,
+		gates,
+		refreshmentStands
+	};
 };
