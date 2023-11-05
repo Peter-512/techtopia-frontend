@@ -10,9 +10,9 @@
 	import TagBadge from "./TagBadge.svelte";
 	import { readable } from 'svelte/store';
 	import type { PointOfInterest } from '$lib/types';
+	import { page } from '$app/stores';
 
 	export let pointsOfInterest: PointOfInterest[];
-
 
 	let minAge = Math.min(...pointsOfInterest.map((poi) => poi.minAge ?? 0));
 	let minHeight = Math.min(...pointsOfInterest.map((poi) => poi.minHeight ?? 0));
@@ -129,6 +129,15 @@
 
 	type POIKeys = keyof PointOfInterest;
 	const hidableCols: POIKeys[]= ['minAge', 'minHeight', 'waitingTime', 'tags'];
+
+	let filter = $page.url.searchParams.get('filter')
+
+	$: if (filter) {
+		$filterValues = {
+			...filterValues,
+			filter
+		}
+	}
 
 	$filterValues = {
 		...$filterValues,

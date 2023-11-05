@@ -19,6 +19,9 @@
 
 <style>
 	a, span {
-  	background-color: var(--badgeColor, #fff);
+      background-color: hsl(var(--badgeColor, 360), 100%, 30%);
+  }
+	a:hover, span:hover {
+		background-color: hsl(var(--badgeColor, 360), 100%, 35%);
 	}
 </style>
