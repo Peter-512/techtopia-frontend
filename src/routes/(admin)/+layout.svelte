@@ -89,7 +89,9 @@
 	<Button on:click={securityStore.logout} variant='destructive'>Logout</Button>
 </div>
 {#if $page.route.id !== '/(admin)/refreshment-stands'}
-	<a class='fixed bottom-2 left-2' href='/refreshment-stands'><PlusCircled size={64} /></a>
+	<a class='fixed bottom-2 left-2 text-green-500 rounded-full hover:shadow-xl transition-shadow z-50 p-1' href='/refreshment-stands'>
+		<PlusCircled size={64} />
+	</a>
 {/if}
 <main class="container">
 	<slot/>
