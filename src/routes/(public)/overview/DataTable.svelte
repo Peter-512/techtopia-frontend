@@ -72,9 +72,9 @@
 				},
 				colFilter: {
 					fn: ({ filterValue, value }) => {
-						return value >= filterValue;
+						return value <= filterValue;
 					},
-					initialFilterValue: minAge,
+					initialFilterValue: maxAge,
 				}
 			}
 		}),
@@ -88,9 +88,9 @@
 				},
 				colFilter: {
 					fn: ({ filterValue, value }) => {
-						return value >= filterValue;
+						return value <= filterValue;
 					},
-					initialFilterValue: minHeight,
+					initialFilterValue: maxHeight,
 				}
 			}
 		}),
@@ -132,8 +132,8 @@
 
 	$filterValues = {
 		...$filterValues,
-		minAge,
-		minHeight,
+		maxAge,
+		maxHeight,
 	};
 </script>
 
@@ -149,13 +149,13 @@
 		</div>
 
 		<div class='flex flex-col py-4 max-w-sm'>
-			<label class='text-muted-foreground' for='min-height'>Height {$filterValues.minHeight ?? minHeight} cm</label>
+			<label class='text-muted-foreground' for='min-height'>Height {$filterValues.minHeight ?? maxHeight} cm</label>
 			<input id='min-height' class='bg-green-300 accent-green-500 text-green-800'  bind:value={$filterValues.minHeight}
 						 min={minHeight} max={maxHeight} step={10} type='range'>
 		</div>
 
 		<div class='flex flex-col py-4 max-w-sm'>
-			<label class="text-muted-foreground" for='min-height'>Age {$filterValues.minAge ?? minAge} years</label>
+			<label class="text-muted-foreground" for='min-height'>Age {$filterValues.minAge ?? maxAge} years</label>
 			<input id='min-height' class='bg-green-300 accent-green-500 text-green-800' bind:value={$filterValues.minAge}
 						 min={minAge} max={maxAge} step={1} type='range'>
 		</div>
