@@ -49,7 +49,7 @@
 	<title>Admin</title>
 </svelte:head>
 
-<section class='max-w-full max-h-full overflow-auto relative sm:mx-4 my-4'>
+<section class='max-w-full max-h-full overflow-auto relative sm:mx-4 mt-12 my-4'>
 	<div class='w-[1000px] h-[1000px] relative m-auto'>
 		{#each data.gates as gate}
 			<GateIcon {gate} />
