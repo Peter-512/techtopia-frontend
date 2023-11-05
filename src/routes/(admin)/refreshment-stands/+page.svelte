@@ -46,10 +46,10 @@ $: {
 		<FormItem class='space-y-3'>
 			<FormLabel>Category</FormLabel>
 			<FormRadioGroup class='flex flex-col space-y-1'>
-				{#each ['SNACKS', 'DRINKS', 'FOOD'] as throughput}
+				{#each ['SNACKS', 'DRINKS', 'FOOD'] as category}
 					<FormItem class='flex items-center space-x-3 space-y-0'>
-						<FormRadioItem value={throughput} id={throughput}>{throughput}</FormRadioItem>
-						<Label for={throughput} class='capitalize'>{throughput.toLowerCase()}</Label>
+						<FormRadioItem value={category} id={category}>{category}</FormRadioItem>
+						<Label for={category} class='capitalize'>{category.toLowerCase()}</Label>
 					</FormItem>
 				{/each}
 			</FormRadioGroup>
