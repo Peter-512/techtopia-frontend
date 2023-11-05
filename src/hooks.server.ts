@@ -18,7 +18,7 @@ export const handleFetch: HandleFetch = async ({ request, event }) => {
 		!(
 			request.url.startsWith('http://localhost:8090/api/attractions') ||
 			request.url.startsWith('http://localhost:8090/api/gates') ||
-			request.url.startsWith('http://localhost:8090/api/refreshment-stands')
+			request.url === 'http://localhost:8090/api/refreshment-stands'
 		)
 	) {
 		request.headers.set('Authorization', `Bearer ${event.locals.user.token}`);

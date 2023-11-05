@@ -8,16 +8,18 @@
 	import { Button } from "$lib/components/ui/button";
 	import DataTableActions from "./DataTableActions.svelte";
 	import TagBadge from "./TagBadge.svelte";
-	import { readable } from "svelte/store";
-	import type { Attraction } from '$lib/types';
+	import { readable } from 'svelte/store';
+	import type { PointOfInterest } from '$lib/types';
 
-	export let attractions: Attraction[] = [];
-	let minAge = Math.min(...attractions.map((attraction) => attraction.minAge));
-	let minHeight = Math.min(...attractions.map((attraction) => attraction.minHeight));
-	let maxAge = Math.max(...attractions.map((attraction) => attraction.minAge));
-	let maxHeight = Math.max(...attractions.map((attraction) => attraction.minHeight));
+	export let pointsOfInterest: PointOfInterest[];
 
-	const table = createTable(readable(attractions), {
+
+	let minAge = Math.min(...pointsOfInterest.map((poi) => poi.minAge ?? 0));
+	let minHeight = Math.min(...pointsOfInterest.map((poi) => poi.minHeight ?? 0));
+	let maxAge = Math.max(...pointsOfInterest.map((poi) => poi.minAge ?? 0));
+	let maxHeight = Math.max(...pointsOfInterest.map((poi) => poi.minHeight ?? 0));
+
+	const table = createTable(readable(pointsOfInterest), {
 		page: addPagination(),
 		sort: addSortBy(),
 		filter: addTableFilter({
@@ -30,7 +32,7 @@
 
 	const columns = table.createColumns([
 		table.column({
-			accessor: 'attractionUUID',
+			accessor: 'uuid',
 			header: "",
 			plugins: {
 				sort: {
@@ -40,8 +42,20 @@
 					exclude: true
 				}
 			},
-			cell: ({ value }) => {
-				return createRender(DataTableActions, { uuid: value });
+			cell: ({ value, row }) => {
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
+				return createRender(DataTableActions, { uuid: value, category: row.original.category });
+			}
+		}),
+		table.column({
+			accessor: "category",
+			header: "Category",
+			cell: ({ value }) => value.split("_").map(word => word.charAt(0) + word.toLowerCase().slice(1)).join(" "),
+			plugins: {
+				filter: {
+					exclude: true
+				}
 			}
 		}),
 		table.column({
@@ -51,9 +65,7 @@
 		table.column({
 			accessor: "minAge",
 			header: "Age requirement",
-			cell: ({ value }) => {
-				return `${value} years`
-			},
+			cell: ({ value }) => value ? `${value} years` : '-',
 			plugins: {
 				filter: {
 					exclude: true
@@ -69,9 +81,7 @@
 		table.column({
 			accessor: "minHeight",
 			header: "Height requirement",
-			cell: ({ value }) => {
-				return `${value} cm`
-			},
+			cell: ({ value }) => value ? `${value} cm` : '-',
 			plugins: {
 				filter: {
 					exclude: true
@@ -94,9 +104,7 @@
 		table.column({
 			accessor: "waitingTime",
 			header: "Waiting Time",
-			cell: ({ value }) => {
-				return `${value} minute${value === 1 ? '' : 's'}`
-			},
+			cell: ({ value }) => value !== null ? `${value} minute${value === 1 ? '' : 's'}` : '-',
 			plugins: {
 				filter: {
 					exclude: true
@@ -119,8 +127,8 @@
 		.filter(([, hide]) => !hide)
 		.map(([id]) => id);
 
-	type AttractionKeys = keyof Attraction;
-	const hidableCols: AttractionKeys[]= ['minAge', 'minHeight', 'waitingTime', 'tags'];
+	type POIKeys = keyof PointOfInterest;
+	const hidableCols: POIKeys[]= ['minAge', 'minHeight', 'waitingTime', 'tags'];
 
 	$filterValues = {
 		...$filterValues,

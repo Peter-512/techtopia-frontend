@@ -14,11 +14,15 @@
 import { Label } from "$lib/components/ui/label";
 	import { refreshmentSchema } from '$lib/schemas.js';
 import { addToast } from '$lib/toastStore';
+import type { ActionData } from './$types';
 
 export let data;
+export let form: ActionData;
+
+	console.log(data);
 
 $: {
-	if (data.status === 201) {
+	if (form?.status === 201) {
 		addToast({ title:'Success!', message: 'The refreshment stand has been created'});
 	}
 
@@ -42,7 +46,7 @@ $: {
 		<FormItem class='space-y-3'>
 			<FormLabel>Category</FormLabel>
 			<FormRadioGroup class='flex flex-col space-y-1'>
-				{#each ['SNACK', 'DRINK', 'FOOD'] as throughput}
+				{#each ['SNACKS', 'DRINKS', 'FOOD'] as throughput}
 					<FormItem class='flex items-center space-x-3 space-y-0'>
 						<FormRadioItem value={throughput} id={throughput}>{throughput}</FormRadioItem>
 						<Label for={throughput} class='capitalize'>{throughput.toLowerCase()}</Label>

@@ -25,6 +25,18 @@ export type AdminAttraction = {
 	threshold: number;
 };
 
+export type PointOfInterest = {
+	category: 'REFRESHMENT_STAND' | 'ATTRACTION';
+	uuid: string;
+	name: string;
+	waitingTime: number | null;
+	minHeight: number | null;
+	minAge: number | null;
+	x: number;
+	y: number;
+	tags: string[];
+};
+
 export type FullAttraction = Attraction & Omit<AdminAttraction, 'attractionUUID'>;
 
 export type Gate = {
@@ -53,7 +65,7 @@ export type RefreshmentStandsForecast = {
 };
 
 export type RefreshmentStand = {
-	refreshmentStandUUID: string;
+	uuid: string;
 	name: string;
 	category: string;
 	x: number;

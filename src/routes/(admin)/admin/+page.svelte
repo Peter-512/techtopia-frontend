@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import type { AdminAttraction, FullAttraction } from '$lib/types';
 	import { addToast } from '$lib/toastStore';
+	import RefreshmentStandIcon from '../../(public)/map/RefreshmentStandIcon.svelte';
 
 	export let data;
 
@@ -55,6 +56,9 @@
 		{/each}
 		{#each data.fullAttractions as attraction (attraction.attractionUUID)}
 			<AttractionIcon adminAttraction={ polledAttractions.find(a => a.attractionUUID.uuid === attraction.attractionUUID) } {attraction} />
+		{/each}
+		{#each data.refreshmentStands as refreshmentStand}
+			<RefreshmentStandIcon isFocused={false} {refreshmentStand} />
 		{/each}
 	</div>
 </section>

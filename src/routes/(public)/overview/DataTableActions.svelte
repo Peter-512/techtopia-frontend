@@ -3,7 +3,9 @@
 	import { Button } from "$lib/components/ui/button";
 	import { FerrisWheel, Map } from 'lucide-svelte';
 	import { MoreHorizontal } from 'lucide-svelte';
+	import type { PointOfInterest } from '$lib/types';
 	export let uuid: string;
+	export let category: PointOfInterest['category'];
 </script>
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger asChild let:builder>
@@ -22,12 +24,14 @@
 			<DropdownMenu.Label>Actions</DropdownMenu.Label>
 		</DropdownMenu.Group>
 		<DropdownMenu.Separator />
+		{#if category === 'ATTRACTION'}
 		<DropdownMenu.Item>
 			<Button variant='link' href='/attraction/{uuid}'>
 				<FerrisWheel class='me-2'/>
 				View Attraction
 			</Button>
 		</DropdownMenu.Item>
+		{/if}
 		<DropdownMenu.Item>
 			<Button class='w-full' href='/map?focus={uuid}'>
 				<Map class='me-2'/>

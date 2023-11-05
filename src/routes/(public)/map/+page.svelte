@@ -36,7 +36,7 @@
 			<AttractionIcon isFocused={attraction.attractionUUID === focusedID} {attraction} />
 		{/each}
 		{#each data.refreshmentStands as refreshmentStand}
-			<RefreshmentStandIcon {refreshmentStand} />
+			<RefreshmentStandIcon isFocused={refreshmentStand.uuid === focusedID} {refreshmentStand} />
 		{/each}
 	</div>
 </section>

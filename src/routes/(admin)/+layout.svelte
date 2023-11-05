@@ -88,9 +88,9 @@
 	<Button href='/analytics'>Analytics</Button>
 	<Button on:click={securityStore.logout} variant='destructive'>Logout</Button>
 </div>
-	{#if $page.route.id !== '/(admin)/refreshment-stands'}
-		<a class='absolute bottom-2 left-2' href='/refreshment-stands'><PlusCircled size={64} /></a>
-	{/if}
+{#if $page.route.id !== '/(admin)/refreshment-stands'}
+	<a class='fixed bottom-2 left-2' href='/refreshment-stands'><PlusCircled size={64} /></a>
+{/if}
 <main class="container">
 	<slot/>
 	<Toasts />
